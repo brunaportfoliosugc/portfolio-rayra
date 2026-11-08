@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --cream:#F5F0E3; --ink:#17261B; --forest:#24402F; --moss:#5C7A54; --sage:#AABB9C;
-  --mist:#EBE5D3; --border:#DAD2B8; --surface:#FFFDF6; --band-bg:#17261B;
+  --cream:#F6EFE6; --ink:#2B1B12; --forest:#5A3A28; --moss:#8A6445; --sage:#D2B596;
+  --mist:#EDE2D3; --border:#DDCDB7; --surface:#FFFBF5; --band-bg:#2B1B12;
   --font-display:'Fraunces',Georgia,serif;
   --font-body:'Public Sans',system-ui,sans-serif;
   --font-mono:'IBM Plex Mono',ui-monospace,monospace;
@@ -48,8 +48,8 @@ em{font-style:italic}
 #promoBar a{border-bottom:1px solid var(--sage);color:var(--sage)}
 
 /* menu */
-header.navbar{position:sticky;top:0;z-index:50;height:var(--nav-h);display:flex;align-items:center;color:var(--cream);transition:background .35s,color .35s,border-color .35s;border-bottom:1px solid transparent}
-header.navbar.scrolled{background:rgba(245,240,227,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);border-color:var(--border)}
+header.navbar{position:sticky;top:0;z-index:50;height:var(--nav-h);display:flex;align-items:center;color:var(--ink);background:var(--cream);border-bottom:1px solid var(--border);transition:box-shadow .35s}
+header.navbar.scrolled{background:rgba(246,239,230,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--border)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;width:100%}
 .logo{font-family:var(--font-display);font-size:1.45rem;font-weight:400;font-style:italic}
 .nav-links{display:flex;gap:2rem;align-items:center}
@@ -62,17 +62,16 @@ header.navbar.scrolled{background:rgba(245,240,227,.82);backdrop-filter:blur(14p
 .lang button.on{opacity:1;border:1px solid currentColor}
 .nav-cta{padding:.6rem 1.15rem;font-size:.85rem}
 .nav-links .nav-cta.mob{display:none}
-header.navbar:not(.scrolled) .nav-cta{background:var(--cream);color:var(--ink);border-color:var(--cream)}
 .burger{display:none;width:40px;height:40px;align-items:center;justify-content:center}
 .burger svg{width:26px;height:26px}
 
 /* capa */
-#hero{position:relative;min-height:100svh;margin-top:calc(var(--nav-h) * -1);display:flex;align-items:flex-end;background:var(--forest);color:var(--cream);overflow:hidden;padding:0}
+#hero{position:relative;min-height:calc(100svh - var(--nav-h));display:flex;align-items:flex-end;background:var(--forest);color:var(--cream);overflow:hidden;padding:0}
 #hero .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(23,38,27,.92) 0%,rgba(23,38,27,.35) 45%,rgba(23,38,27,.15) 100%)}
+.hero-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(43,27,18,.92) 0%,rgba(43,27,18,.35) 45%,rgba(43,27,18,.15) 100%)}
 .hero-content{position:relative;padding:0 var(--gutter) 88px;max-width:var(--max);margin:0 auto;width:100%}
 .hero-content>*{max-width:760px}
-.seal{display:inline-block;border:1px solid rgba(245,240,227,.55);padding:.35rem .8rem;border-radius:var(--radius-sm);margin-bottom:1.4rem}
+.seal{display:inline-block;border:1px solid rgba(246,239,230,.55);padding:.35rem .8rem;border-radius:var(--radius-sm);margin-bottom:1.4rem}
 #hero h1{font-style:italic;font-weight:300;font-size:clamp(2.6rem,7vw,5.6rem);line-height:1.02;margin-bottom:2rem}
 #hero h1 em{font-style:normal;color:var(--sage);font-weight:400}
 .hero-actions{display:flex;gap:1.6rem;align-items:center;flex-wrap:wrap}
@@ -81,8 +80,8 @@ header.navbar:not(.scrolled) .nav-cta{background:var(--cream);color:var(--ink);b
 .about{display:grid;grid-template-columns:5fr 6fr;gap:80px;align-items:center}
 .about figure{aspect-ratio:4/5;background:var(--mist);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
 .about figure img{width:100%;height:100%;object-fit:cover}
-.about p{font-size:1.12rem;color:#34453a;max-width:52ch}
-.about p em{font-style:normal;background:linear-gradient(transparent 58%,rgba(170,187,156,.7) 58%);padding:0 .1em}
+.about p{font-size:1.12rem;color:#4a362a;max-width:52ch}
+.about p em{font-style:normal;background:linear-gradient(transparent 58%,rgba(210,181,150,.7) 58%);padding:0 .1em}
 img[data-foto]{opacity:1;transition:opacity .5s}
 img[data-foto]:not([src]){opacity:0}
 
@@ -102,13 +101,15 @@ img[data-foto]:not([src]){opacity:0}
 .brand-tile.foto img{object-fit:cover}
 .brand-tile.mask img{display:none}
 .brand-tile.mask i{position:absolute;inset:16px;background:var(--ink);-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat}
-.bt-name{color:var(--forest);padding:0 .5rem;text-align:center}
+.brand-tile.txt{width:auto;min-width:0;background:none;padding:0 28px;filter:none;opacity:.9}
+.brand-tile.txt:hover{opacity:1}
+.bt-name{font-family:var(--font-display);font-size:clamp(1.7rem,3vw,2.4rem);font-weight:400;font-style:italic;letter-spacing:0;text-transform:none;color:var(--forest);white-space:nowrap}
 
 /* portfólio */
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:2.2rem}
 .tabs{position:relative;display:flex;gap:1.8rem;overflow-x:auto;border-bottom:1px solid var(--border);margin-bottom:2.2rem;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.folder-tab{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;padding:.9rem 0;color:#6c7a6e;white-space:nowrap;transition:color .25s}
+.folder-tab{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;padding:.9rem 0;color:#8a7565;white-space:nowrap;transition:color .25s}
 .folder-tab.on,.folder-tab:hover{color:var(--ink)}
 .tabs-line{position:absolute;bottom:0;left:0;height:2px;background:var(--forest);width:0;transition:transform .35s ease,width .35s ease}
 .catalog-wrap{position:relative}
@@ -117,9 +118,9 @@ img[data-foto]:not([src]){opacity:0}
 .file-card{flex:none;width:260px;aspect-ratio:3/4;position:relative;overflow:hidden;border-radius:var(--radius);background:var(--forest);scroll-snap-align:start;text-align:left;transition:transform .3s}
 .file-card:hover{transform:translateY(-4px)}
 .file-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.36)}
-.fc-shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(23,38,27,.85),transparent 55%)}
+.fc-shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(43,27,18,.85),transparent 55%)}
 .fc-title{position:absolute;left:16px;right:16px;bottom:16px;color:var(--cream);line-height:1.5}
-.play{position:absolute;top:14px;right:14px;width:34px;height:34px;border:1px solid rgba(245,240,227,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--cream)}
+.play{position:absolute;top:14px;right:14px;width:34px;height:34px;border:1px solid rgba(246,239,230,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--cream)}
 .play svg{width:12px;height:12px;margin-left:2px}
 .arrows{display:flex;gap:.6rem}
 .arrow{width:42px;height:42px;border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;transition:background .25s,color .25s}
@@ -133,7 +134,7 @@ img[data-foto]:not([src]){opacity:0}
 .service-card:hover{transform:translateY(-4px);background:var(--cream)}
 .service-card svg{width:38px;height:38px;stroke:var(--moss);fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;margin-bottom:1.4rem}
 .service-card h3{font-size:1.5rem;font-weight:400;margin-bottom:.5rem}
-.service-card p{color:#4a5a4e;max-width:36ch}
+.service-card p{color:#5e4838;max-width:36ch}
 
 /* letreiro */
 .band{background:var(--band-bg);color:var(--cream);padding:30px 0;overflow:hidden}
@@ -157,7 +158,7 @@ img[data-foto]:not([src]){opacity:0}
 /* contato */
 #contato{background:var(--surface);border-top:1px solid var(--border)}
 .contact{display:grid;grid-template-columns:1fr 1fr;gap:80px}
-.contact-lead{color:#4a5a4e;max-width:40ch;margin-bottom:2rem}
+.contact-lead{color:#5e4838;max-width:40ch;margin-bottom:2rem}
 .contact-rows{border-top:1px solid var(--border)}
 .contact-row{display:flex;justify-content:space-between;align-items:center;padding:1.15rem 0;border-bottom:1px solid var(--border);transition:padding .25s,color .25s}
 .contact-row:hover{padding-left:.6rem;color:var(--moss)}
@@ -168,7 +169,7 @@ form .row2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
 label.f{display:grid;gap:.4rem}
 label.f span{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--moss)}
 input,textarea,select{font:inherit;padding:.8rem .9rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--cream);color:var(--ink);width:100%;transition:border-color .25s,box-shadow .25s}
-input:focus,textarea:focus,select:focus{outline:0;border-color:var(--moss);box-shadow:0 0 0 3px rgba(92,122,84,.18)}
+input:focus,textarea:focus,select:focus{outline:0;border-color:var(--moss);box-shadow:0 0 0 3px rgba(138,100,69,.18)}
 textarea{min-height:120px;resize:vertical}
 .form-msg{font-size:.92rem;min-height:1.4em;color:var(--moss)}
 .form-msg.err{color:#9a3b2e}
@@ -176,27 +177,27 @@ textarea{min-height:120px;resize:vertical}
 /* rodapé */
 footer{padding:56px 0 40px;border-top:1px solid var(--border)}
 .foot{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;align-items:flex-start}
-.foot p{color:#4a5a4e;max-width:40ch;margin-top:.5rem}
+.foot p{color:#5e4838;max-width:40ch;margin-top:.5rem}
 .foot .right{text-align:right}
 .foot .right .mono{display:block;margin-top:.8rem;color:var(--moss)}
 
 /* pop-up */
-.popup{position:fixed;right:24px;bottom:24px;z-index:80;width:min(360px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:0 8px 30px rgba(23,38,27,.12);transform:translateY(20px);opacity:0;transition:opacity .4s,transform .4s}
+.popup{position:fixed;right:24px;bottom:24px;z-index:80;width:min(360px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:0 8px 30px rgba(43,27,18,.12);transform:translateY(20px);opacity:0;transition:opacity .4s,transform .4s}
 .popup.show{opacity:1;transform:none}
 .popup h3{font-size:1.35rem;font-weight:400;margin-bottom:.4rem}
-.popup p{font-size:.9rem;color:#4a5a4e;margin-bottom:1rem}
+.popup p{font-size:.9rem;color:#5e4838;margin-bottom:1rem}
 .popup form{display:grid;gap:.6rem}
 .popup .x{position:absolute;top:8px;right:10px;width:32px;height:32px;font-size:1.3rem;line-height:1}
 
 /* modal de vídeo */
-.modal{position:fixed;inset:0;z-index:100;background:rgba(23,38,27,.85);display:flex;align-items:center;justify-content:center;padding:16px}
+.modal{position:fixed;inset:0;z-index:100;background:rgba(43,27,18,.85);display:flex;align-items:center;justify-content:center;padding:16px}
 .vm-box{position:relative;height:min(88vh,820px);aspect-ratio:9/16;max-width:100%;background:#000;border-radius:var(--radius);overflow:hidden}
 .vm-box iframe,.vm-box #vmPlayer{width:100%;height:100%;border:0;display:block}
 .vm-close{position:absolute;top:-2px;right:-2px;z-index:2;width:44px;height:44px;color:#fff;font-size:1.8rem;text-shadow:0 1px 4px #000}
 
 /* modo editor */
-body.editor [data-texto],body.editor [data-foto],body.editor [data-contato]{outline:1.5px dashed rgba(92,122,84,.9);outline-offset:3px;cursor:pointer}
-body.editor [data-texto]:hover,body.editor [data-foto]:hover,body.editor [data-contato]:hover{background:rgba(170,187,156,.25)}
+body.editor [data-texto],body.editor [data-foto],body.editor [data-contato]{outline:1.5px dashed rgba(138,100,69,.9);outline-offset:3px;cursor:pointer}
+body.editor [data-texto]:hover,body.editor [data-foto]:hover,body.editor [data-contato]:hover{background:rgba(210,181,150,.25)}
 body.editor .file-card,body.editor .brand-tile,body.editor .feedback-folder,body.editor .service-card{cursor:pointer}
 body.editor .reveal{opacity:1;transform:none}
 
@@ -278,13 +279,13 @@ body.editor .reveal{opacity:1;transform:none}
   <p class="lead mono" data-texto="marcas_frase" data-pt="Marcas que confiaram no meu trabalho" data-en="Brands that trusted my work">Marcas que confiaram no meu trabalho</p>
   <div class="marquee"><div class="marquee-track" id="brandTrack">
     <div class="marquee-half">
-      <div class="brand-tile" data-tipo="marca" data-titulo="Marca 01"><span class="bt-name mono">Marca 01</span></div>
-      <div class="brand-tile" data-tipo="marca" data-titulo="Marca 02"><span class="bt-name mono">Marca 02</span></div>
-      <div class="brand-tile" data-tipo="marca" data-titulo="Marca 03"><span class="bt-name mono">Marca 03</span></div>
-      <div class="brand-tile" data-tipo="marca" data-titulo="Marca 04"><span class="bt-name mono">Marca 04</span></div>
-      <div class="brand-tile" data-tipo="marca" data-titulo="Marca 05"><span class="bt-name mono">Marca 05</span></div>
-      <div class="brand-tile" data-tipo="marca" data-titulo="Marca 06"><span class="bt-name mono">Marca 06</span></div>
-      <div class="brand-tile" data-tipo="marca" data-titulo="Marca 07"><span class="bt-name mono">Marca 07</span></div>
+      <div class="brand-tile txt" data-tipo="marca" data-titulo="Marca 01"><span class="bt-name">Marca 01</span></div>
+      <div class="brand-tile txt" data-tipo="marca" data-titulo="Marca 02"><span class="bt-name">Marca 02</span></div>
+      <div class="brand-tile txt" data-tipo="marca" data-titulo="Marca 03"><span class="bt-name">Marca 03</span></div>
+      <div class="brand-tile txt" data-tipo="marca" data-titulo="Marca 04"><span class="bt-name">Marca 04</span></div>
+      <div class="brand-tile txt" data-tipo="marca" data-titulo="Marca 05"><span class="bt-name">Marca 05</span></div>
+      <div class="brand-tile txt" data-tipo="marca" data-titulo="Marca 06"><span class="bt-name">Marca 06</span></div>
+      <div class="brand-tile txt" data-tipo="marca" data-titulo="Marca 07"><span class="bt-name">Marca 07</span></div>
     </div>
   </div></div>
 </div>
@@ -304,6 +305,7 @@ body.editor .reveal{opacity:1;transform:none}
       <button class="folder-tab" data-filter="casa" data-tipo="nicho" data-titulo="Casa"><span class="i18n" data-pt="Casa" data-en="Home">Casa</span></button>
       <span class="tabs-line" id="tabsLine"></span>
     </div>
+    <p id="catalogVazio" class="mono" style="color:var(--moss)" hidden data-texto="portfolio_vazio" data-pt="Em breve, novos vídeos por aqui." data-en="New videos coming soon.">Em breve, novos vídeos por aqui.</p>
     <div class="catalog-wrap reveal"><div class="catalog" id="catalog">
       <button class="file-card" data-cat="beleza" data-tipo="video" data-titulo="Vídeo de exemplo 1"><span class="fc-shade"></span><span class="play"><svg viewBox="0 0 12 12" fill="currentColor"><path d="M2 1l9 5-9 5z"/></svg></span><span class="fc-title mono">Vídeo de exemplo 1</span></button>
       <button class="file-card" data-cat="beleza" data-tipo="video" data-titulo="Vídeo de exemplo 2"><span class="fc-shade"></span><span class="play"><svg viewBox="0 0 12 12" fill="currentColor"><path d="M2 1l9 5-9 5z"/></svg></span><span class="fc-title mono">Vídeo de exemplo 2</span></button>
@@ -438,7 +440,7 @@ var lang = 'pt';
 try { lang = localStorage.getItem('lang') || (/^en/i.test(navigator.language) ? 'en' : 'pt'); } catch(e){}
 var DB = null;
 var SID = (function(){ try{ var s=sessionStorage.getItem('sid'); if(!s){ s=Math.random().toString(36).slice(2)+Date.now().toString(36); sessionStorage.setItem('sid',s);} return s; }catch(e){ return Math.random().toString(36).slice(2); } })();
-var SAMPLE_IMG = 'data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5C7A54"/><stop offset="1" stop-color="#24402F"/></linearGradient></defs><rect width="400" height="500" fill="url(#g)"/><g fill="none" stroke="#AABB9C" stroke-width="1.5" opacity=".6"><path d="M200 460C200 300 200 200 200 90"/><path d="M200 380C150 360 120 320 110 270 160 290 190 330 200 380z"/><path d="M200 300C250 280 280 240 290 190 240 210 210 250 200 300z"/><path d="M200 220C160 200 140 170 135 130 175 150 195 180 200 220z"/></g></svg>');
+var SAMPLE_IMG = 'data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8A6445"/><stop offset="1" stop-color="#5A3A28"/></linearGradient></defs><rect width="400" height="500" fill="url(#g)"/><g fill="none" stroke="#D2B596" stroke-width="1.5" opacity=".6"><path d="M200 460C200 300 200 200 200 90"/><path d="M200 380C150 360 120 320 110 270 160 290 190 330 200 380z"/><path d="M200 300C250 280 280 240 290 190 240 210 210 250 200 300z"/><path d="M200 220C160 200 140 170 135 130 175 150 195 180 200 220z"/></g></svg>');
 
 function $(s,r){return (r||document).querySelector(s)}
 function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
@@ -550,8 +552,8 @@ function renderBand(){
 
 /* ===== Marcas ===== */
 function brandHTML(m){
-  var inner = m.logo_url ? '<img crossorigin="anonymous" alt="'+esc(m.titulo)+'" data-src="'+esc(m.logo_url)+'">' : '<span class="bt-name mono">'+esc(m.titulo)+'</span>';
-  return '<div class="brand-tile" data-tipo="marca" data-titulo="'+esc(m.titulo)+'">'+inner+'</div>';
+  var inner = m.logo_url ? '<img crossorigin="anonymous" alt="'+esc(m.titulo)+'" data-src="'+esc(m.logo_url)+'">' : '<span class="bt-name">'+esc(m.titulo)+'</span>';
+  return '<div class="brand-tile'+(m.logo_url?'':' txt')+'" data-tipo="marca" data-titulo="'+esc(m.titulo)+'">'+inner+'</div>';
 }
 function analisarLogo(img, tile){
   try{
@@ -668,10 +670,10 @@ function aplicarDados(r){
   CONTATO = {};
   DB.contatos.forEach(function(c){ if(c.categoria && c.texto_pt) CONTATO[c.categoria]=c.texto_pt; });
   var fotos = {}; DB.fotos.forEach(function(f){ if(f.categoria && f.logo_url) fotos[f.categoria]=f.logo_url; });
-  $$('img[data-foto]').forEach(function(img){ setFoto(img, fotos[img.dataset.foto] || SAMPLE_IMG); });
+  $$('img[data-foto]').forEach(function(img){ if(fotos[img.dataset.foto]) setFoto(img, fotos[img.dataset.foto]); });
 
   renderMarcas(DB.marcas); $('#marcas').hidden = !DB.marcas.length;
-  renderVideos(DB.videos, DB.nichos); showSection('portfolio', DB.videos.length>0);
+  renderVideos(DB.videos, DB.nichos); showSection('portfolio', true); $('#catalogVazio').hidden = DB.videos.length>0; $('.catalog-wrap').hidden = DB.videos.length===0; $('.arrows').hidden = DB.videos.length===0;
   renderServicos(DB.servicos); showSection('servicos', DB.servicos.length>0);
   renderFeedbacks(DB.feedbacks); showSection('feedbacks', DB.feedbacks.length>0);
 }
