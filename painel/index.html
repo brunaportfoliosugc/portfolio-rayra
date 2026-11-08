@@ -299,7 +299,18 @@ function pillsHtml(){
   return TABS.map(function(t){return '<button class="pill'+(TAB===t[0]?' on':'')+'" data-t="'+t[0]+'">'+t[1]+'</button>'}).join('')+
    '<button class="pill sm'+(TAB==='datas'?' on':'')+'" data-t="datas">Datas comemorativas</button><button class="pill sm'+(TAB==='capa'?' on':'')+'" data-t="capa">Foto da capa</button>';
 }
-function marcarPills(){ $('#pills').innerHTML=pillsHtml(); $$('#pills button').forEach(function(b){ b.onclick=function(){ TAB=b.dataset.t; marcarPills(); desenharGaveta(); }; }); }
+var SECAO={hero:'hero',capa:'hero',sobre:'sobre',marcas:'marcas',portfolio:'portfolio',servicos:'servicos',feedbacks:'feedbacks',contato:'contato',datas:'promoBar'};
+function irParaSecao(suave){
+  try{
+    var doc=$('#frame').contentDocument, el=doc.getElementById(SECAO[TAB]);
+    if(!el||el.hidden) return;
+    var w=$('#frame').contentWindow, b=suave?'smooth':'instant';
+    if(TAB==='hero'||TAB==='capa'||TAB==='datas') w.scrollTo({top:0,behavior:b});
+    else w.scrollTo({top:el.getBoundingClientRect().top+w.scrollY-80,behavior:b});
+  }catch(e){}
+}
+$('#frame').addEventListener('load',function(){ setTimeout(function(){irParaSecao(false)},300); });
+function marcarPills(){ $('#pills').innerHTML=pillsHtml(); $$('#pills button').forEach(function(b){ b.onclick=function(){ TAB=b.dataset.t; marcarPills(); desenharGaveta(); irParaSecao(true); }; }); }
 $$('#seg button').forEach(function(b){ b.onclick=function(){ DEV=b.dataset.d; $$('#seg button').forEach(function(x){x.classList.toggle('on',x===b)}); $('#frameWrap').classList.toggle('cel',DEV==='cel'); }; });
 
 async function carregarItens(){
