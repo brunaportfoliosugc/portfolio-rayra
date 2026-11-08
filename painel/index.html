@@ -120,6 +120,32 @@ input[type=checkbox]{width:auto}
 .imgbox img{width:64px;height:64px;object-fit:cover;border-radius:12px;background:var(--teal-l);border:1px solid var(--line)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.7rem 1.3rem;border-radius:999px;font-weight:700;z-index:99;box-shadow:var(--shadow)}
 .toast.bad{background:var(--danger)}
+/* menu lateral */
+#app{display:flex;min-height:100vh}
+#app[hidden]{display:none}
+.side{width:236px;flex:none;background:linear-gradient(180deg,var(--teal-d),#0f5552);color:#fff;padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+.side .brand{display:flex;align-items:center;gap:12px;padding:4px 8px 22px;font-size:1.3rem;font-weight:800}
+.side .brand .logo-ic{width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.2)}
+.side .brand .logo-ic svg{width:24px;height:24px}
+.side .nv{display:flex;align-items:center;gap:12px;width:100%;padding:.8rem 1rem;border-radius:14px;color:#fff;font-weight:700;font-size:1rem;text-align:left;opacity:.88;transition:background .2s}
+.side .nv svg{width:22px;height:22px;flex:none}
+.side a.nv{text-decoration:none}
+.side .nv:hover{background:rgba(255,255,255,.12);opacity:1}
+.side .nv.on{background:#fff;color:var(--teal-d);opacity:1}
+.side .nv b{margin-left:auto;background:#ffb703;color:#3b2a00;min-width:20px;height:20px;border-radius:10px;font-size:.75rem;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.side .nv b[hidden]{display:none}
+.side .gap{flex:1}
+.main{flex:1;min-width:0}
+.top{border-radius:0 0 28px 28px}
+.top .bell,.top .sair{display:none}
+.actions,#goMetricas{display:none}
+@media(max-width:900px){
+  #app{flex-direction:column}
+  .side{width:100%;height:auto;position:static;flex-direction:row;flex-wrap:wrap;padding:10px;gap:4px}
+  .side .brand,.side .gap{display:none}
+  .side .nv{width:auto;padding:.55rem .8rem;font-size:.9rem}
+  .side .nv svg{width:18px;height:18px}
+}
 @media(max-width:900px){
   .grid5{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}
   .stage{flex-direction:column}.drawer{width:100%;position:static;max-height:none}
@@ -142,6 +168,16 @@ input[type=checkbox]{width:auto}
 </div>
 
 <div id="app" hidden>
+  <nav class="side" aria-label="Menu">
+    <div class="brand"><div class="logo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>Portfólio</div>
+    <button class="nv on" id="nvNum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Números</button>
+    <button class="nv" id="nvEdit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>Editar portfólio</button>
+    <button class="nv" id="nvMsg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Mensagens<b id="nvMsgN" hidden>0</b></button>
+    <a class="nv" href="../" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Ver o site</a>
+    <span class="gap"></span>
+    <button class="nv" id="nvSair"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sair</button>
+  </nav>
+  <div class="main">
   <div class="top">
     <div class="logo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
     <h1>Portfólio</h1>
@@ -179,6 +215,7 @@ input[type=checkbox]{width:auto}
       <aside class="drawer" id="drawer"></aside>
     </div>
   </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
@@ -212,6 +249,13 @@ var iniciado=false;
 function iniciar(){ if(iniciado) return; iniciado=true; carregarMetricas(); }
 $('#goEdit').onclick=function(){ $('#vMetricas').hidden=true; $('#vEdicao').hidden=false; abrirEdicao(); };
 $('#goMetricas').onclick=function(){ $('#vEdicao').hidden=true; $('#vMetricas').hidden=false; carregarMetricas(); };
+function marcarNav(id){ ['nvNum','nvEdit','nvMsg'].forEach(function(k){ $('#'+k).classList.toggle('on',k===id); }); }
+$('#goEdit').addEventListener('click',function(){ marcarNav('nvEdit'); });
+$('#goMetricas').addEventListener('click',function(){ marcarNav('nvNum'); });
+$('#nvNum').onclick=function(){ if(!$('#vEdicao').hidden) $('#goMetricas').click(); else { marcarNav('nvNum'); window.scrollTo({top:0,behavior:'smooth'}); } };
+$('#nvEdit').onclick=function(){ if($('#vEdicao').hidden) $('#goEdit').click(); };
+$('#nvMsg').onclick=function(){ $('#bell').click(); marcarNav('nvMsg'); };
+$('#nvSair').onclick=function(){ $('#sair').click(); };
 $('#periodo').onchange=function(){ carregarMetricas(); };
 
 /* ===== Métricas ===== */
@@ -280,13 +324,13 @@ function desenhar(){
   // sino
   var seen=0; try{ seen=+localStorage.getItem('leadsSeen')||0; }catch(e){}
   var novas=LEADS.filter(function(l){return new Date(l.created_at).getTime()>seen}).length;
-  $('#bellN').textContent=novas; $('#bellN').hidden=!novas;
+  $('#bellN').textContent=novas; $('#bellN').hidden=!novas; $('#nvMsgN').textContent=novas; $('#nvMsgN').hidden=!novas;
 }
 $('#bell').onclick=function(){
   if(!$('#vEdicao').hidden){ $('#goMetricas').click(); }
   $('#cMsgs').scrollIntoView({behavior:'smooth',block:'center'});
   try{ localStorage.setItem('leadsSeen',Date.now()); }catch(e){}
-  $('#bellN').hidden=true;
+  $('#bellN').hidden=true; $('#nvMsgN').hidden=true;
 };
 
 /* ===== Edição ===== */
