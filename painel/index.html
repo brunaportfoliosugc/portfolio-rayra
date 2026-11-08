@@ -7,12 +7,12 @@
 <title>Painel do Portfólio</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--teal:#1f8a86;--teal-d:#176b68;--teal-l:#e3f3f2;--bg:#eef5f4;--ink:#1d2f2e;--muted:#5d7270;--line:#d9e6e4;--card:#fff;--danger:#c0473a;--r:22px;--shadow:0 6px 24px rgba(31,100,96,.10)}
+:root{--teal:#3d4552;--teal-d:#2a303a;--teal-l:#eceef0;--bg:#f4f4f2;--ink:#22252b;--muted:#6b7078;--line:#e2e2de;--card:#fff;--danger:#c0473a;--r:22px;--shadow:0 6px 24px rgba(30,32,40,.08)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.5}
 button{font:inherit;cursor:pointer;border:0;color:inherit;background:none}
 input,textarea,select{font:inherit;color:inherit;width:100%;padding:.7rem .9rem;border:1.5px solid var(--line);border-radius:14px;background:#fff}
-input:focus,textarea:focus,select:focus{outline:0;border-color:var(--teal);box-shadow:0 0 0 3px rgba(31,138,134,.15)}
+input:focus,textarea:focus,select:focus{outline:0;border-color:var(--teal);box-shadow:0 0 0 3px rgba(61,69,82,.18)}
 textarea{min-height:84px;resize:vertical}
 input[type=checkbox]{width:auto}
 [hidden]{display:none!important}
@@ -35,18 +35,13 @@ input[type=checkbox]{width:auto}
 .logo-ic svg{width:28px;height:28px}
 
 .linkbtn{display:block;margin:1rem auto 0;color:var(--teal-d);font-weight:700;text-decoration:underline;font-size:.95rem}
-.okmsg{color:var(--teal-d);margin-top:.8rem;font-weight:600}
 .modal{position:fixed;inset:0;background:rgba(20,40,40,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:90}
 .modal[hidden]{display:none}
 /* cabeçalho */
-.top{background:linear-gradient(135deg,var(--teal),#2aa59f);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:14px;border-radius:0 0 28px 28px}
-.top .logo-ic{background:rgba(255,255,255,.2)}
+.top{background:linear-gradient(135deg,var(--teal-d),var(--teal));color:#fff;padding:18px 24px;display:flex;align-items:center;gap:14px;border-radius:0 0 28px 28px}
 .top h1{font-size:1.5rem;font-weight:800;flex:1}
 .top select{width:auto;background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:999px;padding:.5rem 1rem;font-weight:700}
 .top select option{color:var(--ink)}
-.bell{position:relative;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;color:#fff}
-.bell svg{width:22px;height:22px}
-.bell b{position:absolute;top:-4px;right:-4px;background:#ffb703;color:#3b2a00;min-width:20px;height:20px;border-radius:10px;font-size:.75rem;display:flex;align-items:center;justify-content:center;padding:0 5px}
 .sair{color:#fff;opacity:.85;font-weight:700;padding:.4rem .6rem;font-size:.9rem}
 .wrap{max-width:1100px;margin:0 auto;padding:24px 20px 60px}
 .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin:6px 0 18px}
@@ -102,7 +97,7 @@ input[type=checkbox]{width:auto}
 .seg button.on{background:var(--teal);color:#fff}
 .help{color:var(--muted);font-weight:600;margin:4px 2px 10px}
 .stage{display:flex;gap:16px;align-items:flex-start}
-.frame-wrap{flex:1;min-width:0;background:#cfe0de;border-radius:26px;padding:14px;box-shadow:var(--shadow);display:flex;justify-content:center}
+.frame-wrap{flex:1;min-width:0;background:#dcdcd8;border-radius:26px;padding:14px;box-shadow:var(--shadow);display:flex;justify-content:center}
 .frame{width:100%;height:calc(100vh - 230px);min-height:480px;border:0;border-radius:16px;background:#fff;transition:width .3s}
 .frame-wrap.cel .frame{width:390px}
 .drawer{width:400px;flex:none;background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:20px;max-height:calc(100vh - 230px);min-height:200px;overflow:auto;position:sticky;top:12px}
@@ -113,10 +108,10 @@ input[type=checkbox]{width:auto}
 .fld label{display:block;font-weight:700;font-size:.88rem;margin-bottom:.25rem}
 .fld .hint{font-size:.8rem;color:var(--muted);margin-top:.2rem}
 .fld2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.itm{border:1.5px solid var(--line);border-radius:18px;padding:14px;margin:.7rem 0;background:#fafdfc}
+.itm{border:1.5px solid var(--line);border-radius:18px;padding:14px;margin:.7rem 0;background:#fafaf9}
 .itm.novo{border:2px dashed var(--teal);background:var(--teal-l)}
 .itm.novo .hd{color:var(--teal-d);font-size:1.05rem}
-.itm.flash{border-color:var(--teal);box-shadow:0 0 0 3px rgba(31,138,134,.18)}
+.itm.flash{border-color:var(--teal);box-shadow:0 0 0 3px rgba(61,69,82,.2)}
 .itm .hd{font-weight:800;margin-bottom:.4rem;display:flex;justify-content:space-between;gap:8px}
 .itm .bt{display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap}
 .chk{display:flex;align-items:center;gap:.5rem;font-weight:700;margin:.6rem 0}
@@ -127,17 +122,18 @@ input[type=checkbox]{width:auto}
 /* menu lateral */
 #app{display:flex;min-height:100vh}
 #app[hidden]{display:none}
-.side{width:236px;flex:none;background:linear-gradient(180deg,var(--teal-d),#0f5552);color:#fff;padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
-.side .brand{display:flex;align-items:center;gap:12px;padding:4px 8px 22px;font-size:1.3rem;font-weight:800}
-.side .brand .logo-ic{width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.2)}
-.side .brand .logo-ic svg{width:24px;height:24px}
+.side{width:236px;flex:none;background:linear-gradient(180deg,#2d333d,#1c2027);color:#fff;padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+.side .brand{padding:6px 12px 22px;font-size:1.3rem;font-weight:800;letter-spacing:.2px}
+.side .foot{display:flex;align-items:center;gap:6px}
+.side .foot .nv{flex:1}
+.side .gear{width:46px;height:46px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;opacity:.88;transition:background .2s}
+.side .gear:hover{background:rgba(255,255,255,.12);opacity:1}
+.side .gear svg{width:22px;height:22px}
 .side .nv{display:flex;align-items:center;gap:12px;width:100%;padding:.8rem 1rem;border-radius:14px;color:#fff;font-weight:700;font-size:1rem;text-align:left;opacity:.88;transition:background .2s}
 .side .nv svg{width:22px;height:22px;flex:none}
 .side a.nv{text-decoration:none}
 .side .nv:hover{background:rgba(255,255,255,.12);opacity:1}
 .side .nv.on{background:#fff;color:var(--teal-d);opacity:1}
-.side .nv b{margin-left:auto;background:#ffb703;color:#3b2a00;min-width:20px;height:20px;border-radius:10px;font-size:.75rem;display:flex;align-items:center;justify-content:center;padding:0 5px}
-.side .nv b[hidden]{display:none}
 .side .gap{flex:1}
 .main{flex:1;min-width:0}
 .top{border-radius:0 0 28px 28px}
@@ -146,6 +142,7 @@ input[type=checkbox]{width:auto}
   #app{flex-direction:column}
   .side{width:100%;height:auto;position:static;flex-direction:row;flex-wrap:wrap;padding:10px;gap:4px}
   .side .brand,.side .gap{display:none}
+  .side .foot{margin-left:auto}.side .foot .nv{flex:none}
   .side .nv{width:auto;padding:.55rem .8rem;font-size:.9rem}
   .side .nv svg{width:18px;height:18px}
 }
@@ -166,35 +163,21 @@ input[type=checkbox]{width:auto}
     <label for="em">E-mail</label><input id="em" type="email" autocomplete="username" required>
     <label for="pw">Senha</label><input id="pw" type="password" autocomplete="current-password" required>
     <button class="btn" type="submit">Entrar</button>
-    <button class="linkbtn" type="button" id="esqueci">Esqueci minha senha</button>
     <p class="err" id="loginErr" hidden></p>
-    <p class="okmsg" id="loginOk" hidden></p>
-  </form>
-  <form class="login-card" id="novaForm" hidden>
-    <div class="logo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
-    <h1>Criar nova senha</h1>
-    <p>Escolha uma senha nova, com pelo menos 6 caracteres.</p>
-    <label for="np1">Nova senha</label><input id="np1" type="password" autocomplete="new-password" required minlength="6">
-    <label for="np2">Repita a nova senha</label><input id="np2" type="password" autocomplete="new-password" required minlength="6">
-    <button class="btn" type="submit">Salvar nova senha</button>
-    <p class="err" id="novaErr" hidden></p>
   </form>
 </div>
 
 <div id="app" hidden>
   <nav class="side" aria-label="Menu">
-    <div class="brand"><div class="logo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>Painel Admin</div>
+    <div class="brand">Painel Admin</div>
     <button class="nv on" id="nvNum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Portfólio</button>
-    
+    <span class="gap"></span>
+    <div class="foot"><button class="nv" id="sair"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sair</button><button class="gear" id="trocarSenha" type="button" aria-label="Trocar senha" title="Trocar senha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg></button></div>
   </nav>
   <div class="main">
   <div class="top">
-    <div class="logo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
-    <h1>Painel Admin</h1>
+    <h1>Portfólio</h1>
     <select id="periodo" aria-label="Período"><option value="all">Tudo</option><option value="7">7d</option><option value="30">30d</option><option value="90">90d</option></select>
-    <button class="bell" id="bell" aria-label="Mensagens novas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg><b id="bellN" hidden>0</b></button>
-    <button class="sair" id="trocarSenha">Trocar senha</button>
-    <button class="sair" id="sair">Sair</button>
   </div>
 
   <div id="vMetricas" class="wrap">
@@ -239,7 +222,6 @@ var SUPABASE_ANON_KEY = 'sb_publishable_W5CC0tOVnjJkeaHb1L7bYQ_r411iNx6';
 var BUCKET = 'portfolio-imagens';
 var SITE = '../';
 
-var RECUPERANDO = /type=recovery/.test(location.hash);
 var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 function $(s,r){return (r||document).querySelector(s)}
 function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
@@ -248,36 +230,12 @@ function toast(t,bad){var d=document.createElement('div');d.className='toast'+(b
 
 /* ===== Login ===== */
 function mostrar(logado){ $('#login').hidden=logado; $('#app').hidden=!logado; }
-function telaNovaSenha(){ mostrar(false); $('#loginForm').hidden=true; $('#novaForm').hidden=false; }
-sb.auth.onAuthStateChange(function(ev){ if(ev==='PASSWORD_RECOVERY'){ RECUPERANDO=true; telaNovaSenha(); } });
-sb.auth.getSession().then(function(r){
-  if(RECUPERANDO && r.data.session){ telaNovaSenha(); }
-  else if(r.data.session){ mostrar(true); iniciar(); } else mostrar(false);
-});
 function checarSenha(a,b,er){
   er.hidden=true;
   if(a.length<6){ er.textContent='A senha precisa ter pelo menos 6 caracteres.'; er.hidden=false; return false; }
   if(a!==b){ er.textContent='As duas senhas não são iguais. Tente de novo.'; er.hidden=false; return false; }
   return true;
 }
-$('#esqueci').onclick=function(){
-  var er=$('#loginErr'), ok=$('#loginOk'); er.hidden=true; ok.hidden=true;
-  var e=$('#em').value.trim();
-  if(!e){ er.textContent='Digite seu e-mail no campo acima e clique de novo em "Esqueci minha senha".'; er.hidden=false; return; }
-  sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname}).then(function(r){
-    if(r.error){ er.textContent='Não consegui enviar agora. Espere um pouco e tente de novo.'; er.hidden=false; return; }
-    ok.textContent='Pronto! Se esse e-mail tem cadastro, enviamos um link para criar uma senha nova. Olhe também o spam.'; ok.hidden=false;
-  });
-};
-$('#novaForm').addEventListener('submit',function(e){
-  e.preventDefault(); var er=$('#novaErr');
-  if(!checarSenha($('#np1').value,$('#np2').value,er)) return;
-  sb.auth.updateUser({password:$('#np1').value}).then(function(r){
-    if(r.error){ er.textContent='Não deu certo. Peça um link novo em "Esqueci minha senha".'; er.hidden=false; return; }
-    RECUPERANDO=false; history.replaceState(null,'',location.pathname);
-    $('#novaForm').hidden=true; $('#loginForm').hidden=false; mostrar(true); iniciar(); toast('Senha alterada com sucesso!');
-  });
-});
 $('#trocarSenha').onclick=function(){ $('#ts1').value=''; $('#ts2').value=''; $('#trocaErr').hidden=true; $('#mdSenha').hidden=false; $('#ts1').focus(); };
 $('#tsCancelar').onclick=function(){ $('#mdSenha').hidden=true; };
 $('#trocaForm').addEventListener('submit',function(e){
@@ -368,17 +326,7 @@ function desenhar(){
     return '<div class="msg"><div class="who">'+esc(l.name)+'</div><div class="ct">'+esc(c)+' · '+new Date(l.created_at).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})+'</div>'+(l.message?'<div class="tx">'+esc(l.message)+'</div>':'')+'</div>';
   }).join(''):'<p class="empty">Nenhuma mensagem por enquanto.</p>';
 
-  // sino
-  var seen=0; try{ seen=+localStorage.getItem('leadsSeen')||0; }catch(e){}
-  var novas=LEADS.filter(function(l){return new Date(l.created_at).getTime()>seen}).length;
-  $('#bellN').textContent=novas; $('#bellN').hidden=!novas;
 }
-$('#bell').onclick=function(){
-  if(!$('#vEdicao').hidden){ $('#goMetricas').click(); }
-  $('#cMsgs').scrollIntoView({behavior:'smooth',block:'center'});
-  try{ localStorage.setItem('leadsSeen',Date.now()); }catch(e){}
-  $('#bellN').hidden=true;
-};
 
 /* ===== Edição ===== */
 var ITENS=[], TAB='hero', DEV='pc';
