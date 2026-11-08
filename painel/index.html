@@ -110,6 +110,8 @@ input[type=checkbox]{width:auto}
 .fld .hint{font-size:.8rem;color:var(--muted);margin-top:.2rem}
 .fld2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .itm{border:1.5px solid var(--line);border-radius:18px;padding:14px;margin:.7rem 0;background:#fafdfc}
+.itm.novo{border:2px dashed var(--teal);background:var(--teal-l)}
+.itm.novo .hd{color:var(--teal-d);font-size:1.05rem}
 .itm.flash{border-color:var(--teal);box-shadow:0 0 0 3px rgba(31,138,134,.18)}
 .itm .hd{font-weight:800;margin-bottom:.4rem;display:flex;justify-content:space-between;gap:8px}
 .itm .bt{display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap}
@@ -361,14 +363,19 @@ async function enviarImagem(file,prefixo){
 /* --- blocos de formulário --- */
 function textoForm(key,rotulo,cur,opts){
   opts=opts||{}; var it=achar('texto',key); cur=cur||{};
-  var pt=it?it.texto_pt:(cur.pt||''), en=it?it.texto_en:(cur.en||'');
+  var pad=padraoSite(key);
+  var pt=it?it.texto_pt:(cur.pt||pad.pt), en=it?it.texto_en:(cur.en||pad.en);
   var tag=opts.curto?'input':'textarea';
   var campo=function(id,v){return tag==='input'?'<input data-f="'+id+'" value="'+esc(v)+'">':'<textarea data-f="'+id+'">'+esc(v)+'</textarea>'};
   return '<div class="blk" data-kind="texto" data-key="'+esc(key)+'"><div class="fld"><label>'+esc(rotulo)+' (português)</label>'+campo('pt',pt)+(opts.dica?'<div class="hint">'+opts.dica+'</div>':'')+'</div><div class="fld"><label>'+esc(rotulo)+' (inglês)</label>'+campo('en',en)+'</div><button class="btn small" data-act="salvar-texto">Salvar</button></div>';
 }
+function padraoSite(key){
+  try{ var el=$('#frame').contentDocument.querySelector('[data-texto="'+key+'"]'); if(el) return {pt:el.dataset.pt||'',en:el.dataset.en||''}; }catch(e){}
+  return {pt:'',en:''};
+}
 function fotoForm(key,rotulo){
   var it=achar('foto',key), url=it&&it.logo_url||'';
-  return '<div class="blk" data-kind="foto" data-key="'+esc(key)+'"><div class="fld"><label>'+esc(rotulo)+'</label><div class="imgbox">'+(url?'<img src="'+esc(url)+'" alt="">':'<img alt="">')+'<input type="file" accept="image/*" data-act="subir-foto"></div><div class="hint">Escolha uma foto do seu computador. Ela é enviada e salva na hora (até 20 MB).</div></div></div>';
+  return '<div class="blk" data-kind="foto" data-key="'+esc(key)+'"><div class="fld"><label>'+esc(rotulo)+'</label><div class="imgbox">'+(url?'<img src="'+esc(url)+'" alt="">':'<img alt="">')+'<input type="file" accept="image/*" data-act="subir-foto"></div>'+(it?'<button class="btn danger small" data-act="remover-foto" style="margin-top:.6rem">Remover foto</button>':'')+'<div class="hint">Escolha uma foto do seu computador. Ela é enviada e salva na hora (até 20 MB).</div></div></div>';
 }
 function contatoForm(){
   var campos=[['whatsapp','WhatsApp','Só números, com 55 e DDD. Ex.: 5511999999999'],['whatsapp_msg','Mensagem pronta do WhatsApp','Texto que já aparece escrito quando alguém te chama.'],['email','E-mail',''],['instagram','Instagram','Sem o @'],['tiktok','TikTok (opcional)','Sem o @']];
@@ -402,20 +409,20 @@ function campoHtml(c,v,tipo){
 function itemForm(tipo,it){
   var e=ESQ[tipo]; it=it||{};
   var corpo=e.campos.map(function(c){return campoHtml(c,it[c[0]]==null?(c[0]==='ordem'?'':it[c[0]]):it[c[0]],tipo)}).join('');
-  return '<div class="itm" id="it-'+(it.id||'novo-'+tipo)+'" data-tipo="'+tipo+'" data-id="'+(it.id||'')+'"><div class="hd"><span>'+esc(it.id?e.nome(it):e.novo)+'</span></div>'+corpo+'<div class="bt"><button class="btn small" data-act="salvar-item">Salvar</button>'+(it.id?'<button class="btn danger small" data-act="apagar-item">Apagar</button>':'')+'</div></div>';
+  return '<div class="itm'+(it.id?'':' novo')+'" id="it-'+(it.id||'novo-'+tipo)+'" data-tipo="'+tipo+'" data-id="'+(it.id||'')+'"><div class="hd"><span>'+(it.id?esc(e.nome(it)):'＋ '+esc(e.novo))+'</span></div>'+corpo+'<div class="bt"><button class="btn small" data-act="salvar-item">'+(it.id?'Salvar':'Adicionar')+'</button>'+(it.id?'<button class="btn danger small" data-act="apagar-item">Apagar</button>':'')+'</div></div>';
 }
 function lista(tipo,filtro){
   var itens=ITENS.filter(function(i){return i.tipo===tipo&&(!filtro||filtro(i))});
-  return itens.map(function(i){return itemForm(tipo,i)}).join('')+itemForm(tipo,null);
+  return itemForm(tipo,null)+itens.map(function(i){return itemForm(tipo,i)}).join('');
 }
 
 /* --- abas --- */
 function vHero(){ return ['Capa (hero)',
-  textoForm('hero_selo','Selo',null,{curto:1})+textoForm('hero_titulo','Frase principal',null,{dica:'Coloque a palavra de destaque entre asteriscos. Ex.: vídeos *criativos*'})+textoForm('hero_botao','Botão',null,{curto:1})+textoForm('hero_link','Link ao lado do botão',null,{curto:1})+'<h4>Foto da capa</h4>'+fotoForm('hero','Foto da capa'),
+  textoForm('hero_selo','Selo',null,{curto:1})+textoForm('hero_titulo','Frase principal',null,{dica:'Coloque a palavra de destaque entre asteriscos. Ex.: vídeos *criativos*'})+textoForm('hero_botao','Botão',null,{curto:1})+textoForm('hero_link','Link "Ver portfólio" (aparece ao lado do botão)',null,{curto:1,dica:'É o texto clicável que leva até seus vídeos.'})+'<h4>Foto da capa</h4>'+fotoForm('hero','Foto da capa'),
   'Primeira coisa que as marcas veem.']; }
 function vSobre(){ return ['Sobre',
   textoForm('sobre_titulo','Título',null,{curto:1})+textoForm('sobre_texto','Texto',null,{dica:'Deixe uma parte em destaque colocando entre asteriscos. Ex.: *natural*'})+'<h4>Foto</h4>'+fotoForm('sobre','Foto'),'Apresente você em poucas palavras.']; }
-function vMarcas(){ return ['Marcas',textoForm('marcas_frase','Frase da faixa',null,{curto:1})+'<h4>Marcas</h4>'+lista('marca'),'Logos de quem já confiou no seu trabalho. Sem logo, aparece só o nome.']; }
+function vMarcas(){ return ['Marcas',textoForm('marcas_frase','Frase da faixa',null,{curto:1})+'<h4>Marcas (use o quadro tracejado para adicionar mais)</h4>'+lista('marca'),'Sem logo, a marca aparece só com o nome. Dá para adicionar quantas quiser.']; }
 function vPortfolio(){ return ['Portfólio',textoForm('portfolio_titulo','Título',null,{curto:1})+'<h4>Nichos (botões de filtro)</h4>'+lista('nicho')+'<h4>Vídeos</h4>'+lista('video'),'Vídeos do YouTube que abrem na tela do site.']; }
 function vServicos(){ return ['Serviços',textoForm('servicos_titulo','Título',null,{curto:1})+'<h4>Serviços</h4>'+lista('servico')+'<h4>Faixa rolando</h4>'+textoForm('letreiro','Textos da faixa',null,{dica:'Separe cada item com uma barra |. Ex.: Reels | Unboxing | Fotos'}),'Cada serviço aparece em um cartão.']; }
 function vFeedbacks(){ return ['Feedbacks',textoForm('feedbacks_titulo','Título',null,{curto:1})+'<h4>Depoimentos</h4>'+lista('feedback'),'O que as marcas falam de você.']; }
@@ -438,6 +445,10 @@ function ligar(){
     var row={tipo:'texto',titulo:key,categoria:key,texto_pt:$('[data-f=pt]',blk).value,texto_en:$('[data-f=en]',blk).value,ativo:true};
     if(it) row.id=it.id;
     if(await salvarLinha(row)){ toast('Salvo!'); }
+  };});
+  $$('[data-act="remover-foto"]',d).forEach(function(b){ b.onclick=function(){
+    var it=achar('foto',b.closest('.blk').dataset.key);
+    if(it && confirm('Remover esta foto?')) apagarLinha(it.id);
   };});
   $$('[data-act="subir-foto"]',d).forEach(function(inp){ inp.onchange=async function(){
     var f=inp.files[0]; if(!f) return; var blk=inp.closest('.blk'), key=blk.dataset.key;
