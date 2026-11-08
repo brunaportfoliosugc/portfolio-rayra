@@ -230,6 +230,7 @@ function toast(t,bad){var d=document.createElement('div');d.className='toast'+(b
 
 /* ===== Login ===== */
 function mostrar(logado){ $('#login').hidden=logado; $('#app').hidden=!logado; }
+sb.auth.getSession().then(function(r){ if(r.data.session){ mostrar(true); iniciar(); } else mostrar(false); });
 function checarSenha(a,b,er){
   er.hidden=true;
   if(a.length<6){ er.textContent='A senha precisa ter pelo menos 6 caracteres.'; er.hidden=false; return false; }
