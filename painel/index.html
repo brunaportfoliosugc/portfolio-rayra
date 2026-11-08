@@ -34,6 +34,10 @@ input[type=checkbox]{width:auto}
 .logo-ic{width:52px;height:52px;border-radius:16px;background:var(--teal);display:flex;align-items:center;justify-content:center;color:#fff}
 .logo-ic svg{width:28px;height:28px}
 
+.linkbtn{display:block;margin:1rem auto 0;color:var(--teal-d);font-weight:700;text-decoration:underline;font-size:.95rem}
+.okmsg{color:var(--teal-d);margin-top:.8rem;font-weight:600}
+.modal{position:fixed;inset:0;background:rgba(20,40,40,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:90}
+.modal[hidden]{display:none}
 /* cabeçalho */
 .top{background:linear-gradient(135deg,var(--teal),#2aa59f);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:14px;border-radius:0 0 28px 28px}
 .top .logo-ic{background:rgba(255,255,255,.2)}
@@ -162,7 +166,18 @@ input[type=checkbox]{width:auto}
     <label for="em">E-mail</label><input id="em" type="email" autocomplete="username" required>
     <label for="pw">Senha</label><input id="pw" type="password" autocomplete="current-password" required>
     <button class="btn" type="submit">Entrar</button>
+    <button class="linkbtn" type="button" id="esqueci">Esqueci minha senha</button>
     <p class="err" id="loginErr" hidden></p>
+    <p class="okmsg" id="loginOk" hidden></p>
+  </form>
+  <form class="login-card" id="novaForm" hidden>
+    <div class="logo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+    <h1>Criar nova senha</h1>
+    <p>Escolha uma senha nova, com pelo menos 6 caracteres.</p>
+    <label for="np1">Nova senha</label><input id="np1" type="password" autocomplete="new-password" required minlength="6">
+    <label for="np2">Repita a nova senha</label><input id="np2" type="password" autocomplete="new-password" required minlength="6">
+    <button class="btn" type="submit">Salvar nova senha</button>
+    <p class="err" id="novaErr" hidden></p>
   </form>
 </div>
 
@@ -178,6 +193,7 @@ input[type=checkbox]{width:auto}
     <h1>Painel Admin</h1>
     <select id="periodo" aria-label="Período"><option value="all">Tudo</option><option value="7">7d</option><option value="30">30d</option><option value="90">90d</option></select>
     <button class="bell" id="bell" aria-label="Mensagens novas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg><b id="bellN" hidden>0</b></button>
+    <button class="sair" id="trocarSenha">Trocar senha</button>
     <button class="sair" id="sair">Sair</button>
   </div>
 
@@ -213,6 +229,8 @@ input[type=checkbox]{width:auto}
   </div>
 </div>
 
+<div class="modal" id="mdSenha" hidden><form class="login-card" id="trocaForm"><h1>Trocar senha</h1><p>Escolha uma senha nova, com pelo menos 6 caracteres.</p><label for="ts1">Nova senha</label><input id="ts1" type="password" autocomplete="new-password" required minlength="6"><label for="ts2">Repita a nova senha</label><input id="ts2" type="password" autocomplete="new-password" required minlength="6"><button class="btn" type="submit">Salvar nova senha</button><button class="linkbtn" type="button" id="tsCancelar">Cancelar</button><p class="err" id="trocaErr" hidden></p></form></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 /* ===== Configuração ===== */
@@ -221,6 +239,7 @@ var SUPABASE_ANON_KEY = 'sb_publishable_W5CC0tOVnjJkeaHb1L7bYQ_r411iNx6';
 var BUCKET = 'portfolio-imagens';
 var SITE = '../';
 
+var RECUPERANDO = /type=recovery/.test(location.hash);
 var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 function $(s,r){return (r||document).querySelector(s)}
 function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
@@ -229,7 +248,46 @@ function toast(t,bad){var d=document.createElement('div');d.className='toast'+(b
 
 /* ===== Login ===== */
 function mostrar(logado){ $('#login').hidden=logado; $('#app').hidden=!logado; }
-sb.auth.getSession().then(function(r){ if(r.data.session){ mostrar(true); iniciar(); } else mostrar(false); });
+function telaNovaSenha(){ mostrar(false); $('#loginForm').hidden=true; $('#novaForm').hidden=false; }
+sb.auth.onAuthStateChange(function(ev){ if(ev==='PASSWORD_RECOVERY'){ RECUPERANDO=true; telaNovaSenha(); } });
+sb.auth.getSession().then(function(r){
+  if(RECUPERANDO && r.data.session){ telaNovaSenha(); }
+  else if(r.data.session){ mostrar(true); iniciar(); } else mostrar(false);
+});
+function checarSenha(a,b,er){
+  er.hidden=true;
+  if(a.length<6){ er.textContent='A senha precisa ter pelo menos 6 caracteres.'; er.hidden=false; return false; }
+  if(a!==b){ er.textContent='As duas senhas não são iguais. Tente de novo.'; er.hidden=false; return false; }
+  return true;
+}
+$('#esqueci').onclick=function(){
+  var er=$('#loginErr'), ok=$('#loginOk'); er.hidden=true; ok.hidden=true;
+  var e=$('#em').value.trim();
+  if(!e){ er.textContent='Digite seu e-mail no campo acima e clique de novo em "Esqueci minha senha".'; er.hidden=false; return; }
+  sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname}).then(function(r){
+    if(r.error){ er.textContent='Não consegui enviar agora. Espere um pouco e tente de novo.'; er.hidden=false; return; }
+    ok.textContent='Pronto! Se esse e-mail tem cadastro, enviamos um link para criar uma senha nova. Olhe também o spam.'; ok.hidden=false;
+  });
+};
+$('#novaForm').addEventListener('submit',function(e){
+  e.preventDefault(); var er=$('#novaErr');
+  if(!checarSenha($('#np1').value,$('#np2').value,er)) return;
+  sb.auth.updateUser({password:$('#np1').value}).then(function(r){
+    if(r.error){ er.textContent='Não deu certo. Peça um link novo em "Esqueci minha senha".'; er.hidden=false; return; }
+    RECUPERANDO=false; history.replaceState(null,'',location.pathname);
+    $('#novaForm').hidden=true; $('#loginForm').hidden=false; mostrar(true); iniciar(); toast('Senha alterada com sucesso!');
+  });
+});
+$('#trocarSenha').onclick=function(){ $('#ts1').value=''; $('#ts2').value=''; $('#trocaErr').hidden=true; $('#mdSenha').hidden=false; $('#ts1').focus(); };
+$('#tsCancelar').onclick=function(){ $('#mdSenha').hidden=true; };
+$('#trocaForm').addEventListener('submit',function(e){
+  e.preventDefault(); var er=$('#trocaErr');
+  if(!checarSenha($('#ts1').value,$('#ts2').value,er)) return;
+  sb.auth.updateUser({password:$('#ts1').value}).then(function(r){
+    if(r.error){ er.textContent='Não deu certo. Saia e entre de novo, depois tente outra vez.'; er.hidden=false; return; }
+    $('#mdSenha').hidden=true; toast('Senha alterada com sucesso!');
+  });
+});
 $('#loginForm').addEventListener('submit',function(e){
   e.preventDefault(); var er=$('#loginErr'); er.hidden=true;
   sb.auth.signInWithPassword({email:$('#em').value.trim(),password:$('#pw').value}).then(function(r){
